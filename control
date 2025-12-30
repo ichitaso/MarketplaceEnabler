@@ -1,9 +1,14 @@
+Author: khanhduytran0
+Maintainer: ichitaso
+Name: MarketplaceEnabler
 Package: com.kdt.aintuitweak
-Name: aintuitweaks
+Pre-Depends: firmware (>= 18.0)
+Depends: mobilesubstrate
+Section: Tweaks
 Version: 0.0.1
 Architecture: iphoneos-arm
-Description: An awesome MobileSubstrate tweak!
-Maintainer: khanhduytran0
-Author: khanhduytran0
-Section: Tweaks
-Depends: mobilesubstrate (>= 0.9.5000)
+Description: Bypassing EU/Japan Marketplace checks on iOS 18
+Depiction: https://cydia.ichitaso.com/depiction/aintuitweak.html
+SileoDepiction: https://cydia.ichitaso.com/depiction/aintuitweak.json
+Homepage: https://ichitaso.com/
+Tag: purpose::extension
