@@ -1,5 +1,6 @@
 @import Darwin;
 @import Foundation;
+#include <libgen.h>
 #import <IOKit/IOKitLib.h>
 #import "SignedPDI.h"
 
@@ -70,7 +71,7 @@ BOOL gCalledImg4Execute = NO;
 %end
 
 %ctor {
-    NSString *processName = NSProcessInfo.processInfo.processName;
+    NSString *processName = @(basename(argv[0]));
     if ([processName isEqualToString:@"MobileStorageMounter"]) {
         %init(Hook_MobileStorageMounter);
     }

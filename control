@@ -2,12 +2,12 @@ Author: khanhduytran0
 Maintainer: ichitaso
 Name: MarketplaceEnabler
 Package: com.kdt.aintuitweak
-Pre-Depends: firmware (>= 18.0)
+Pre-Depends: firmware (>= 17.5)
 Depends: mobilesubstrate
 Section: Tweaks
-Version: 0.0.1
+Version: 0.0.2
 Architecture: iphoneos-arm
-Description: Bypassing EU/Japan Marketplace checks on iOS 18
+Description: Bypassing EU/Japan Marketplace checks on iOS 17.5 or later
 Depiction: https://cydia.ichitaso.com/depiction/aintuitweak.html
 SileoDepiction: https://cydia.ichitaso.com/depiction/aintuitweak.json
 Homepage: https://ichitaso.com/

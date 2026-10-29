@@ -1,4 +1,7 @@
 @import Foundation;
+#include <libgen.h>
+#include <dlfcn.h>
+#import <substrate.h>
 
 typedef CF_ENUM(uint64_t, EligibilityDomainType) {
     /// Install marketplace-distributed apps
@@ -99,10 +102,28 @@ int os_eligibility_get_domain_answer(EligibilityDomainType domain, EligibilityAn
 %end
 %end
 
+// On iPad, managedappdistributiond rejects marketplace/ADP installs with
+// "Feature not eligible on this device class" before the eligibility domain is
+// even queried. It determines the device class through these libMobileGestalt
+// accessors; the daemon maps deviceClassNumber 1 -> "iPhone", 3 -> "iPad".
+// Spoof them so the daemon treats an iPad as an iPhone.
+static int (*orig_MG_deviceClassNumber)(void *device);
+static int my_MG_deviceClassNumber(void *device) {
+    return 1; // iPhone
+}
+
+static void hookDeviceClass(void) {
+    void *f;
+    if ((f = dlsym(RTLD_DEFAULT, "MobileGestalt_get_deviceClassNumber"))) {
+        MSHookFunction(f, (void *)my_MG_deviceClassNumber, (void **)&orig_MG_deviceClassNumber);
+    }
+}
+
 %ctor {
-    NSString *processName = NSProcessInfo.processInfo.processName;
+    NSString *processName = @(basename(argv[0]));
     if ([processName isEqualToString:@"managedappdistributiond"] || [processName isEqualToString:@"installd"]) {
         %init(Hook_os_eligibility_get_domain_answer);
+        hookDeviceClass();
     } else if ([processName isEqualToString:@"appstorecomponentsd"]) {
         %init(Hook_appstorecomponentsd);
     }

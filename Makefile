@@ -1,8 +1,7 @@
 DEBUG = 0
 FINALPACKAGE = 1
-THEOS_PACKAGE_SCHEME := rootless
 
-THEOS_DEVICE_IP = 192.168.0.23
+THEOS_DEVICE_IP = 127.0.0.1 -p 2222
 
 TARGET := iphone:clang:latest:15.0
 
